@@ -15,8 +15,7 @@ const Create = () => {
 
   return (
     <>
-      <Header />
-      <div className="max-w-4xl p-12">
+      <div className="max-w-4xl py-8">
         <div className="relative  bg-transparent rounded-sm px-4 sm:px-6 lg:px-8">
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -25,15 +24,15 @@ const Create = () => {
             <div>
               <div className=" space-y-6 sm:pt-10 sm:space-y-5">
                 <div>
-                  <h3 className="text-lg leading-6 font-medium text-slate-200">
-                    Create an NFT
+                  <h3 className="text-lg leading-6 font-medium text-white">
+                    Fund your idea
                   </h3>
-                  <p className="mt-1 max-w-2xl text-sm text-white">
+                  <p className="mt-1 max-w-2xl text-sm text-emerald-400">
                     Please upload as much as you can about your business
                   </p>
                 </div>
                 <div className="space-y-6 sm:space-y-5">
-                  <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-rt sm:border-t-2 sm:border-amber-300 sm:pt-5">
+                  <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-rt sm:border-t sm:pt-5">
                     <label
                       htmlFor="name"
                       className="block text-sm font-medium text-white sm:mt-px sm:pt-2"
@@ -51,7 +50,7 @@ const Create = () => {
                       />
                     </div>
                   </div>
-                  <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-rt sm:border-t-2 sm:border-amber-300 sm:pt-5">
+                  <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-rt sm:border-t sm:pt-5">
                     <label
                       htmlFor="name"
                       className="block text-sm font-medium text-white sm:mt-px sm:pt-2"
@@ -69,7 +68,7 @@ const Create = () => {
                       />
                     </div>
                   </div>
-                  <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-rt sm:border-t-2 sm:border-amber-300 sm:pt-5">
+                  <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-rt sm:border-t sm:pt-5">
                     <label
                       htmlFor="blockchain-id"
                       className="block text-sm font-medium text-white sm:mt-px sm:pt-2"
@@ -87,7 +86,7 @@ const Create = () => {
                       />
                     </div>
                   </div>
-                  <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-rt sm:border-t-2 sm:border-amber-300 sm:pt-5">
+                  <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-rt sm:border-t sm:pt-5">
                     <label
                       htmlFor="sub-region"
                       className="block text-sm font-medium text-white sm:mt-px sm:pt-2"
@@ -116,7 +115,7 @@ const Create = () => {
                       </select>
                     </div>
                   </div>
-                  <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-rt sm:border-t-2 sm:border-amber-300 sm:pt-5">
+                  <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-rt sm:border-t sm:pt-5">
                     <label
                       htmlFor="city"
                       className="block text-sm font-medium text-white sm:mt-px sm:pt-2"
@@ -134,7 +133,7 @@ const Create = () => {
                       />
                     </div>
                   </div>
-                  <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-rt sm:border-t-2 sm:border-amber-300 sm:pt-5">
+                  <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-rt sm:border-t sm:pt-5">
                     <label
                       htmlFor="region"
                       className="block text-sm font-medium text-white sm:mt-px sm:pt-2"
@@ -155,7 +154,7 @@ const Create = () => {
                 </div>
               </div>
             </div>
-            <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start border-t-2 sm:border-amber-300 sm:pt-5">
+            <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start border-t sm:pt-5">
               <label
                 htmlFor="about"
                 className="block text-sm font-medium text-white sm:mt-px sm:pt-2"
@@ -180,7 +179,7 @@ const Create = () => {
                 </p>
               </div>
             </div>
-            <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start border-t-2 sm:border-amber-300 sm:pt-5">
+            <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start border-t sm:pt-5">
               <label
                 htmlFor="cover-photo"
                 className="block text-sm font-medium text-white sm:mt-px sm:pt-2"
@@ -227,7 +226,7 @@ const Create = () => {
                 </div>
               </div>
             </div>
-            <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start border-t-2 sm:border-amber-300 sm:pt-5">
+            <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start border-t sm:pt-5">
               <label
                 htmlFor="cover-photo"
                 className="block text-sm font-medium text-white sm:mt-px sm:pt-2"

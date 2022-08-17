@@ -37,7 +37,7 @@ export default function Home() {
 
   const { data: nftData } = useRawRequest({
     query: getTokenDataQuery,
-    variables: { tokenId: "0xc922b16f4e9d299fd5fc5b8375928fa761484042" },
+    variables: { tokenId: "0x5d2c8858ec2b20d37ba7ff2654c985fc93fc81f8" },
     config: {
       refetchInterval: (nftData) =>
         !nftData?.token || nftData?.progress < 100 ? 500 : false,
@@ -62,9 +62,14 @@ export default function Home() {
     setOpen(true);
   };
 
+  const handleView = () => {
+    setOpen(true);
+  };
+
+  console.log(nftData);
+
   return (
     <>
-      <Header />
       <div className="mx-auto pt-14 pb-24 px-4 sm:pt-16 sm:pb-32 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="lg:grid lg:grid-rows-1 lg:grid-cols-7 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
           <div className="lg:row-end-1 lg:col-span-4">
@@ -109,6 +114,13 @@ export default function Home() {
                 className="w-full bg-black border-2 rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-emerald-400 hover:bg-zinc-800 focus:-2ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
               >
                 Withdraw
+              </button>
+              <button
+                onClick={handleView}
+                type="button"
+                className="w-full bg-black border-2 rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-emerald-400 hover:bg-zinc-800 focus:-2ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
+              >
+                View Deck
               </button>
             </div>
 
