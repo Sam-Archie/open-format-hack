@@ -4,7 +4,9 @@ import "../styles/globals.css";
 function MyApp({ Component, pageProps }) {
   return (
     <OpenFormatProvider config={{ network: "mumbai" }}>
-      <Component {...pageProps} />
+      <main>
+        <Component {...pageProps} />
+      </main>
     </OpenFormatProvider>
   );
 }
