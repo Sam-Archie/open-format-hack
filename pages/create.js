@@ -1,8 +1,6 @@
 import Link from "next/link";
 import React, { useState } from "react";
-import { useFieldArray, useForm } from "react-hook-form";
-import Header from "../components/header";
-import Modal from "../components/modal";
+import { useForm } from "react-hook-form";
 
 const Create = () => {
   const [open, setOpen] = useState(false);
@@ -10,6 +8,7 @@ const Create = () => {
   const form = useForm();
   const { handleSubmit, register, control, formState } = form;
   const onSubmit = handleSubmit((data) => {
+    console.log(data);
     setOpen(true);
   });
 
@@ -27,7 +26,7 @@ const Create = () => {
                   <h3 className="text-lg leading-6 font-medium text-white">
                     Fund your idea
                   </h3>
-                  <p className="mt-1 max-w-2xl text-sm text-emerald-400">
+                  <p className="mt-1 max-w-2xl text-sm text-sky-400">
                     Please upload as much as you can about your business
                   </p>
                 </div>
@@ -174,7 +173,7 @@ const Create = () => {
                 <p className="mt-2 text-sm text-white">
                   Max 500 charecters, if you are uploading an article please go{" "}
                   <Link href={"/contribute-audio"}>
-                    <a className=" text-blue-500">here.</a>
+                    <a className=" text-sky-400">here.</a>
                   </Link>
                 </p>
               </div>
@@ -205,14 +204,14 @@ const Create = () => {
                     </svg>
                     <div className="flex text-sm text-white">
                       <label
-                        htmlFor="image"
-                        className="relative cursor-pointer bg-transparent rounded-md font-medium text-blue-500 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
+                        htmlFor="contract"
+                        className="relative cursor-pointer bg-transparent rounded-md font-medium text-sky-400 hover:text-sky-400 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
                       >
                         <span>Upload a file</span>
                         <input
-                          {...register("image")}
-                          id="image"
-                          name="image"
+                          {...register("contract")}
+                          id="contract"
+                          name="contract"
                           type="file"
                           className="sr-only"
                         />
@@ -252,14 +251,14 @@ const Create = () => {
                     </svg>
                     <div className="flex text-sm text-white">
                       <label
-                        htmlFor="image"
-                        className="relative cursor-pointer bg-transparent rounded-md font-medium text-blue-500 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
+                        htmlFor="deck"
+                        className="relative cursor-pointer bg-transparent rounded-md font-medium text-sky-400 hover:text-sky-400 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
                       >
                         <span>Upload a file</span>
                         <input
-                          {...register("image")}
-                          id="image"
-                          name="image"
+                          {...register("deck")}
+                          id="deck"
+                          name="deck"
                           type="file"
                           className="sr-only"
                         />
