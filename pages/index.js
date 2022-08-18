@@ -12,6 +12,7 @@ import Modal from "../components/modal";
 import { getProperty } from "../helpers/getProperty";
 import transformURL from "../helpers/transformUrl";
 import { useMint } from "@simpleweb/open-format-react";
+import { ethers } from "ethers";
 
 const license = {
   href: "#",
@@ -85,8 +86,17 @@ export default function Home() {
     const tx = await mint();
     console.log(tx);
   };
-  const handleDeposit = () => {
+  const handleDeposit = async () => {
     //setOpen(true);
+
+    let provider = new ethers.providers.Web3Provider(wallet.provider);
+    const signer = provider.getSigner();
+    console.log(signer);
+    let tx = {
+      to: tokenId,
+      value: ethers.utils.parseEther("1"),
+    };
+    await signer.sendTransaction(tx).then((data) => console.log(data));
   };
   const handleWithdraw = async () => {
     //setOpen(true);
