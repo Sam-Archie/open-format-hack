@@ -1,7 +1,6 @@
 import { useRawRequest } from "@simpleweb/open-format-react";
 import { gql } from "graphql-request";
 import { useState } from "react";
-import Header from "../components/header";
 import Modal from "../components/modal";
 import { getProperty } from "../helpers/getProperty";
 import transformURL from "../helpers/transformUrl";
@@ -194,7 +193,7 @@ export default function Home() {
               </ul>
             </div>
           </div>
-          <Modal {...{ open }} {...{ setOpen }} />
+          <Modal {...{ open, setOpen }} />
         </div>
       </div>
     </>
