@@ -1,5 +1,6 @@
 import {
   useGetCollaboratorBalance,
+  useGetTokenBalance,
   useNFT,
   useRawRequest,
   useSetupRevenueSharing,
@@ -14,6 +15,7 @@ import { getProperty } from "../helpers/getProperty";
 import transformURL from "../helpers/transformUrl";
 import { useMint } from "@simpleweb/open-format-react";
 import { ethers } from "ethers";
+import useInterval from "../helpers/usePoll";
 
 const license = {
   href: "#",
@@ -30,21 +32,36 @@ export default function Home() {
   const { withdraw } = useWithdrawCollaboratorFunds(nft);
   const { withdraw: withdrawDividend } = useWithdrawTokenFunds(nft);
   const collaboratorAddress = "0xf2041e383b8874b237B72740da07901A2FF9D2B6";
-  const { data: dividendData } = useGetCollaboratorBalance(
-    nft,
-    collaboratorAddress
-  );
-
-  console.log(dividendData);
   const revShareExtensionAddress = "0x483C3aDD26C87d2F99DcCB84Cbf61844B6aeD212";
   const creatorAddress = wallet?.accounts[0].address;
   const creatorShare = 4000; // 40%
   const collaboratorShare = 1000; // 10%
   const holderPercentage = 5000;
 
-  const { data: balanceData } = useGetCollaboratorBalance(
+  const { data: balanceData, refetch } = useGetCollaboratorBalance(
     nft,
     collaboratorAddress
+  );
+
+  const { data: dividendData, refetch: refetchDividendData } =
+    useGetTokenBalance(nft, 0);
+
+  const isData = balanceData !== undefined;
+  useEffect(() => {}, [isData]);
+
+  const [delay, setDelay] = useState(1000);
+
+  useInterval(
+    () => {
+      refetch();
+    },
+    !balanceData ? delay : null
+  );
+  useInterval(
+    () => {
+      refetchDividendData();
+    },
+    !dividendData ? delay : null
   );
 
   const getTokenDataQuery = gql`
@@ -85,6 +102,8 @@ export default function Home() {
   const artist = getProperty("artist", properties);
   const releaseType = getProperty("release_type", properties);
   const blockchain = getProperty("blockchain", properties);
+
+  async function getAllUsersTokens() {}
 
   const handleBuy = async () => {
     //setOpen(true);
@@ -201,8 +220,11 @@ export default function Home() {
                 <ul role="list">
                   <li>
                     Total Dividend:{" "}
-                    {dividendData &&
-                      ethers.utils.formatEther(dividendData.toString())}
+                    {dividendData && ethers.utils.formatEther(dividendData)}
+                  </li>
+                  <li>
+                    Total Minting earnings:{" "}
+                    {balanceData && ethers.utils.formatEther(balanceData)}
                   </li>
                   <li>{releaseType}</li>
                   <li>{artist}</li>
