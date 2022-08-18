@@ -5,9 +5,10 @@ import {
   useSetupRevenueSharing,
   useWallet,
   useWithdrawCollaboratorFunds,
+  useWithdrawTokenFunds,
 } from "@simpleweb/open-format-react";
 import { gql } from "graphql-request";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../components/modal";
 import { getProperty } from "../helpers/getProperty";
 import transformURL from "../helpers/transformUrl";
@@ -27,11 +28,16 @@ export default function Home() {
   const { setup } = useSetupRevenueSharing(nft);
   const { mint } = useMint(nft);
   const { withdraw } = useWithdrawCollaboratorFunds(nft);
-  const [tokenBalance, setTokenBalance] = useState(0);
+  const { withdraw: withdrawDividend } = useWithdrawTokenFunds(nft);
+  const collaboratorAddress = "0xf2041e383b8874b237B72740da07901A2FF9D2B6";
+  const { data: dividendData } = useGetCollaboratorBalance(
+    nft,
+    collaboratorAddress
+  );
 
+  console.log(dividendData);
   const revShareExtensionAddress = "0x483C3aDD26C87d2F99DcCB84Cbf61844B6aeD212";
   const creatorAddress = wallet?.accounts[0].address;
-  const collaboratorAddress = "0xf2041e383b8874b237B72740da07901A2FF9D2B6";
   const creatorShare = 4000; // 40%
   const collaboratorShare = 1000; // 10%
   const holderPercentage = 5000;
@@ -40,7 +46,6 @@ export default function Home() {
     nft,
     collaboratorAddress
   );
-  console.log(balanceData?.toString());
 
   const getTokenDataQuery = gql`
     query ($tokenId: String!) {
@@ -123,6 +128,10 @@ export default function Home() {
     console.log(tx);
   };
 
+  const handleWithdrawDividend = async () => {
+    await withdrawDividend(0);
+  };
+
   return (
     <>
       <div className="mx-auto pt-14 pb-24 px-4 sm:pt-16 sm:pb-32 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -177,12 +186,24 @@ export default function Home() {
               >
                 Add Collaborators
               </button>
+              <button
+                onClick={handleWithdrawDividend}
+                type="button"
+                className="w-full bg-black border-2 rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-emerald-400 hover:bg-zinc-800 focus:-2ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
+              >
+                Withdraw Dividend
+              </button>
             </div>
 
             <div className="border-t border-cyan-400 mt-10 pt-10">
               <h3 className="text-sm font-medium text-gray-100">Highlights</h3>
               <div className="mt-4 prose prose-sm text-white">
                 <ul role="list">
+                  <li>
+                    Total Dividend:{" "}
+                    {dividendData &&
+                      ethers.utils.formatEther(dividendData.toString())}
+                  </li>
                   <li>{releaseType}</li>
                   <li>{artist}</li>
                   <li>{blockchain}</li>
