@@ -14,8 +14,8 @@ const Create = () => {
 
   return (
     <>
-      <div className="max-w-4xl py-8">
-        <div className="relative  bg-transparent rounded-sm px-4 sm:px-6 lg:px-8">
+      <div className="px-8 sm:px-6 lg:px-8 max-w-4xl py-8">
+        <div className="relative bg-transparent rounded-sm px-4 sm:px-6 lg:px-8">
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="space-y-8 divide-y divide-gray-200"

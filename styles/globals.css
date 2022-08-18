@@ -4,6 +4,6 @@
 
 @layer base {
   main {
-    @apply bg-gradient-to-tr from-black to-zinc-900;
+    @apply bg-gradient-to-tr from-black to-zinc-800;
   }
 }

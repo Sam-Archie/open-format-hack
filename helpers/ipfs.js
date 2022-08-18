@@ -21,7 +21,7 @@ export const uploadToIPFS = async (data) => {
  */
 
 export const buildMetadata = async (data) => {
-  const { name, description, image, blockchain } = data;
+  const { name, description, blockchain } = data;
 
   // generate a random factory ID
   const FACTORY_ID = process.env.NEXT_PUBLIC_FACTORY_ID;
@@ -36,8 +36,7 @@ export const buildMetadata = async (data) => {
     name,
     description,
     blockchain,
-    image,
-    release_type: "art",
+    release_type: "investment",
     factory_id: FACTORY_ID,
   };
 
