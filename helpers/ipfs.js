@@ -8,12 +8,13 @@ const client = new NFTStorage({
 });
 
 export const uploadToIPFS = async (data) => {
+  console.log(data);
   if (!data) throw Error("Data is invalid");
   return await client.store(data);
 };
 
-export const buildMetadata = async (data) => {
-  const { name, description, blockchain } = data;
+export const buildMetadata = (data) => {
+  const { name, description, blockchain, image } = data;
 
   const FACTORY_ID = process.env.NEXT_PUBLIC_FACTORY_ID;
   if (!FACTORY_ID || typeof FACTORY_ID !== "string") {
@@ -25,7 +26,8 @@ export const buildMetadata = async (data) => {
   const metadata = {
     name,
     description,
-    blockchain,
+    image: image[0],
+    blockchain: "mumbai",
     release_type: "investment",
     factory_id: FACTORY_ID,
   };

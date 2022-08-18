@@ -1,9 +1,17 @@
-import { useRawRequest } from "@simpleweb/open-format-react";
+import {
+  useGetCollaboratorBalance,
+  useNFT,
+  useRawRequest,
+  useSetupRevenueSharing,
+  useWallet,
+  useWithdrawCollaboratorFunds,
+} from "@simpleweb/open-format-react";
 import { gql } from "graphql-request";
 import { useState } from "react";
 import Modal from "../components/modal";
 import { getProperty } from "../helpers/getProperty";
 import transformURL from "../helpers/transformUrl";
+import { useMint } from "@simpleweb/open-format-react";
 
 const license = {
   href: "#",
@@ -12,6 +20,27 @@ const license = {
 };
 
 export default function Home() {
+  const tokenId = "0xC0d718F73014974eC4770E036BB47E9fD3364633".toLowerCase();
+  const { isConnected, wallet } = useWallet();
+  const nft = useNFT(tokenId);
+  const { setup } = useSetupRevenueSharing(nft);
+  const { mint } = useMint(nft);
+  const { withdraw } = useWithdrawCollaboratorFunds(nft);
+  const [tokenBalance, setTokenBalance] = useState(0);
+
+  const revShareExtensionAddress = "0x483C3aDD26C87d2F99DcCB84Cbf61844B6aeD212";
+  const creatorAddress = wallet?.accounts[0].address;
+  const collaboratorAddress = "0xf2041e383b8874b237B72740da07901A2FF9D2B6";
+  const creatorShare = 4000; // 40%
+  const collaboratorShare = 1000; // 10%
+  const holderPercentage = 5000;
+
+  const { data: balanceData } = useGetCollaboratorBalance(
+    nft,
+    collaboratorAddress
+  );
+  console.log(balanceData?.toString());
+
   const getTokenDataQuery = gql`
     query ($tokenId: String!) {
       token(id: $tokenId) {
@@ -36,7 +65,7 @@ export default function Home() {
 
   const { data: nftData } = useRawRequest({
     query: getTokenDataQuery,
-    variables: { tokenId: "0x5d2c8858ec2b20d37ba7ff2654c985fc93fc81f8" },
+    variables: { tokenId },
     config: {
       refetchInterval: (nftData) =>
         !nftData?.token || nftData?.progress < 100 ? 500 : false,
@@ -51,21 +80,38 @@ export default function Home() {
   const releaseType = getProperty("release_type", properties);
   const blockchain = getProperty("blockchain", properties);
 
-  const handleBuy = () => {
-    setOpen(true);
+  const handleBuy = async () => {
+    //setOpen(true);
+    const tx = await mint();
+    console.log(tx);
   };
   const handleDeposit = () => {
-    setOpen(true);
+    //setOpen(true);
   };
-  const handleWithdraw = () => {
-    setOpen(true);
-  };
-
-  const handleView = () => {
-    setOpen(true);
+  const handleWithdraw = async () => {
+    //setOpen(true);
+    await withdraw(collaboratorAddress);
   };
 
-  console.log(nftData);
+  const handleCollaboration = async () => {
+    //setOpen(true);
+    const tx = await setup({
+      //should b await in docs
+      revShareExtensionAddress,
+      collaborators: [
+        {
+          address: creatorAddress,
+          share: creatorShare,
+        },
+        {
+          address: collaboratorAddress,
+          share: collaboratorShare,
+        },
+      ],
+      holderPercentage,
+    });
+    console.log(tx);
+  };
 
   return (
     <>
@@ -115,11 +161,11 @@ export default function Home() {
                 Withdraw
               </button>
               <button
-                onClick={handleView}
+                onClick={handleCollaboration}
                 type="button"
                 className="w-full bg-black border-2 rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-emerald-400 hover:bg-zinc-800 focus:-2ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
               >
-                View Deck
+                Add Collaborators
               </button>
             </div>
 

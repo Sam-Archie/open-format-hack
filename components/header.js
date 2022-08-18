@@ -1,8 +1,10 @@
 import Link from "next/link";
+import { ConnectButton, useWallet } from "@simpleweb/open-format-react";
 
 const navigation = [{ name: "Create", href: "/create" }];
 
 export default function Header() {
+  const { isConnected, wallet } = useWallet();
   return (
     <header className="bg-transparent border-b border-cyan-400">
       <nav className="max-w-7xl px-8 sm:px-8 lg:px-16" aria-label="Top">
@@ -29,6 +31,7 @@ export default function Header() {
               ))}
             </div>
           </div>
+          <ConnectButton className="text-white" />
         </div>
       </nav>
     </header>
